@@ -84,3 +84,11 @@
 !*.elf
 !*.bmm
 !*.xmp
+
+#########
+#Generated files
+#########
+/proj_single_cycle.cache
+/proj_single_cycle.ip_user_files
+/proj_single_cycle.gen
+/proj_single_cycle.runs
