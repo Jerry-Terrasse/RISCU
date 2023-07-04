@@ -58,6 +58,7 @@
 
 // ram_we
 `define RAM_WE 1'b1
+`define RAM_RD 1'b0
 `define RAM_NO 1'b0
 
 // 外设I/O接口电路的端口地址
