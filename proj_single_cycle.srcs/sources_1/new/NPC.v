@@ -18,9 +18,9 @@ assign pcb = {pc + offset, 2'b00};
 
 always @(*) begin
     case(op)
-        `NPC_PC4: npc = pc4;
-        `NPC_BR1: npc = br ? pcb : pc4;
-        `NPC_BR0: npc = br ? pc4 : pcb;
+        `NPC_PC4: npc = pc4[31: 2];
+        `NPC_BR1: npc = br ? pcb[31: 2] : pc4[31: 2];
+        `NPC_BR0: npc = br ? pc4[31: 2] : pcb[31: 2];
         `NPC_JMP: npc = pcb[31: 2];
     endcase
 end
