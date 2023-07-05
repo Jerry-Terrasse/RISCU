@@ -29,7 +29,7 @@ module myCPU (
 wire [31: 0] pc;
 assign inst_addr = pc[13: 0];
 
-Controller u_controller(.inst(inst[31: 15]));
+Controller u_controller(.inst({inst[6: 0], inst[14: 12], inst[30]}));
 
 wire alu_f;
 wire [31: 0] ext;

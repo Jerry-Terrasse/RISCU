@@ -3,7 +3,7 @@
 `include "defines.vh"
 
 module Controller(
-    input wire [16: 0] inst,
+    input wire [10: 0] inst,
     
     output wire pc_sel,
     output wire [1: 0] npc_op,
@@ -16,9 +16,8 @@ module Controller(
     output wire ram_we
 );
 
-wire [10: 0] rom_adr = {inst[16: 7], inst[5]};
 wire [16: 0] rom_data;
-Controller_ROM u_controller_rom(.a(rom_adr), .spo(rom_data));
+Controller_ROM u_controller_rom(.a(inst), .spo(rom_data));
 
 assign pc_sel = rom_data[16];
 assign npc_op = rom_data[15: 14];
