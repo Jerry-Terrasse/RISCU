@@ -29,11 +29,11 @@ module myCPU (
 wire [31: 0] pc;
 assign inst_addr = pc[13: 0];
 
-Controller u_controller(.inst({inst[6: 0], inst[14: 12], inst[30]}));
+Controller u_controller(.inst(inst[31: 15]));
 
 wire alu_f;
 wire [31: 0] ext;
-NPC u_npc(.pc(pc), .offset(ext[31: 2]), .br(alu_f), .op(u_controller.npc_op));
+NPC u_npc(.pc(pc[31: 2]), .offset(ext), .br(alu_f), .op(u_controller.npc_op));
 
 wire [31: 0] alu_c;
 wire [31: 0] pc_din = u_controller.pc_sel==`PC_NPC ? u_npc.npc : alu_c;
@@ -65,7 +65,7 @@ ALU u_alu(.op(u_controller.alu_op), .A(u_rf.rD1), .B(alu_b), .C(alu_c));
 assign alu_f = u_controller.br_sel==`BR_SIGN ? u_alu.sf : u_alu.zf;
 
 DRAM u_dram(
-    .a(alu_c), .spo(dram_rdo),
+    .a(alu_c[13: 0]), .spo(dram_rdo),
     .d(u_rf.rD2), .clk(cpu_clk), .we(u_controller.ram_we)
 );
 

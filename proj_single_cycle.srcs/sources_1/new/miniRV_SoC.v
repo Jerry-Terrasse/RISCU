@@ -80,7 +80,7 @@ module miniRV_SoC (
         .cpu_clk            (cpu_clk),
 
         // Interface to IROM
-        .inst_addr          (inst_addr),
+        .inst_addr          (inst_addr[13: 0]),
         .inst               (inst),
 
         // Interface to Bridge
@@ -100,7 +100,7 @@ module miniRV_SoC (
     );
     
     IROM Mem_IROM (
-        .a          (inst_addr),
+        .a          (inst_addr[13: 0]),
         .spo        (inst)
     );
     
