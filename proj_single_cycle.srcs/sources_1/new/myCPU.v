@@ -72,7 +72,7 @@ DRAM u_dram(
 `ifdef RUN_TRACE
     // Debug Interface
     assign debug_wb_have_inst = 1'b1;
-    assign debug_wb_pc        = {pc_din, 2'b00};
+    assign debug_wb_pc        = pc;
     assign debug_wb_ena       = u_controller.rf_we;
     assign debug_wb_reg       = inst[11:7];
     assign debug_wb_value     = rf_wd;
