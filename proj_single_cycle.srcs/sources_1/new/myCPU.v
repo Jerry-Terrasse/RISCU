@@ -71,11 +71,11 @@ DRAM u_dram(
 
 `ifdef RUN_TRACE
     // Debug Interface
-    assign debug_wb_have_inst = /* TODO */;
-    assign debug_wb_pc        = /* TODO */;
-    assign debug_wb_ena       = /* TODO */;
-    assign debug_wb_reg       = /* TODO */;
-    assign debug_wb_value     = /* TODO */;
+    assign debug_wb_have_inst = 1'b1;
+    assign debug_wb_pc        = pc_din;
+    assign debug_wb_ena       = u_controller.rf_we;
+    assign debug_wb_reg       = inst[11:7];
+    assign debug_wb_value     = rf_wd;
 `endif
 
 endmodule
