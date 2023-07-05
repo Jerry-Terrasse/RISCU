@@ -18,11 +18,11 @@ module myCPU (
 
 `ifdef RUN_TRACE
     ,// Debug Interface
-    output wire         debug_wb_have_inst,
-    output wire [31:0]  debug_wb_pc,
-    output              debug_wb_ena,
-    output wire [ 4:0]  debug_wb_reg,
-    output wire [31:0]  debug_wb_value
+    output reg         debug_wb_have_inst,
+    output reg [31:0]  debug_wb_pc,
+    output reg          debug_wb_ena,
+    output reg [ 4:0]  debug_wb_reg,
+    output reg [31:0]  debug_wb_value
 `endif
 );
 
@@ -71,11 +71,18 @@ DRAM u_dram(
 
 `ifdef RUN_TRACE
     // Debug Interface
-    assign debug_wb_have_inst = 1'b1;
-    assign debug_wb_pc        = pc;
-    assign debug_wb_ena       = u_controller.rf_we;
-    assign debug_wb_reg       = inst[11:7];
-    assign debug_wb_value     = rf_wd;
+    always @(posedge cpu_clk) begin
+        debug_wb_have_inst <= 1'b1;
+        debug_wb_pc <= pc;
+        debug_wb_ena <= u_controller.rf_we;
+        debug_wb_reg <= inst[11:7];
+        debug_wb_value <= rf_wd;
+    end
+    // assign debug_wb_have_inst = 1'b1;
+    // assign debug_wb_pc        = pc;
+    // assign debug_wb_ena       = u_controller.rf_we;
+    // assign debug_wb_reg       = inst[11:7];
+    // assign debug_wb_value     = rf_wd;
 `endif
 
 endmodule
