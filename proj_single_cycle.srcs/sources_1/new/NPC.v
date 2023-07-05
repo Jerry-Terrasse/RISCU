@@ -13,7 +13,7 @@ module NPC(
     output wire [31: 0] pcb
 );
 
-assign pc4 = {pc + 4, 2'b00};
+assign pc4 = {pc + 30'h1, 2'b00};
 assign pcb = {pc + offset, 2'b00};
 
 always @(*) begin
