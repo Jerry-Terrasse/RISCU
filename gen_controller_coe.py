@@ -164,7 +164,7 @@ def work(file_name: str):
         f.write(";")
     with open("controller.bin", "wb") as f:
         for inst in ROM:
-            f.write(int(inst, 2).to_bytes(4, byteorder='little'))
+            f.write(int(inst, 2).to_bytes(4, byteorder='big'))
 
 if __name__ == '__main__':
     file_name = sys.argv[1]
