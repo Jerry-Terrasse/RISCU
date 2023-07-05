@@ -1,4 +1,4 @@
-`define CPU_DEFINES
+`ifndef CPU_DEFINES
 `define CPU_DEFINES
 
 // Annotate this macro before synthesis
