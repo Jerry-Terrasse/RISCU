@@ -154,6 +154,7 @@ def work(file_name: str):
             ROM.append('0' * 17)
     print("add:", ROM[0b0110011_000_0]) # add
     print("srai:", ROM[0b0010011_101_1]) # srai
+    print("jal:", ROM[0b1101111_000_0]) # jal
     
     with open("controller.coe", "w", encoding='utf-8') as f:
         f.write("memory_initialization_radix=2;\n")
@@ -161,6 +162,9 @@ def work(file_name: str):
         output = ',\n'.join(ROM)
         f.write(output)
         f.write(";")
+    with open("controller.bin", "wb") as f:
+        for inst in ROM:
+            f.write(int(inst, 2).to_bytes(4, byteorder='little'))
 
 if __name__ == '__main__':
     file_name = sys.argv[1]
