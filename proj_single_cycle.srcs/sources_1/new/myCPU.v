@@ -36,7 +36,7 @@ wire [31: 0] ext;
 NPC u_npc(.pc(pc[31: 2]), .offset(ext[31: 2]), .br(alu_f), .op(u_controller.npc_op));
 
 wire [31: 0] alu_c;
-wire [31: 0] pc_din = u_controller.pc_sel==`PC_NPC ? u_npc.npc : alu_c;
+wire [29: 0] pc_din = u_controller.pc_sel==`PC_NPC ? u_npc.npc : alu_c[31: 2];
 PC u_pc(.rst(cpu_rst), .clk(cpu_clk), .din(pc_din), .pc(pc));
 
 SEXT u_sext(.op(u_controller.sext_op), .din(inst[31: 7]), .ext(ext));
