@@ -27,10 +27,26 @@ module ALU(
 `define ALU_SLTU 4'b1001
 */
 
+wire [31: 0] minuend;
+wire [31: 0] subtrahend;
+wire [31: 0] difference;
+
+always @(*) begin
+    if(op == `ALU_SLTU) begin
+        minuend = {~A[31], A[30: 0]};
+        subtrahend = {~B[31], B[30: 0]};
+    end else begin
+        minuend = A;
+        subtrahend = B;
+    end
+end
+
+always @(*) difference = minuend - subtrahend;
+
 always @(*) begin
     case(op)
         `ALU_ADD: C = A + B;
-        `ALU_SUB: C = A - B;
+        `ALU_SUB: C = difference;
         `ALU_AND: C = A & B;
         `ALU_OR:  C = A | B;
         `ALU_XOR: C = A ^ B;
@@ -45,8 +61,8 @@ always @(*) begin
                 C = (A >> B[4: 0]) | ((32'b1 << B[4: 0]) - 1) << (32 - B[4: 0]);
             end
         end
-        `ALU_SLT: C = A - B;
-        `ALU_SLTU: C = A - B;
+        `ALU_SLT: C = difference;
+        `ALU_SLTU: C = difference;
         default: C = A;
     endcase
 end
@@ -54,11 +70,11 @@ end
 always @(*) zf = (C == 0);
 
 always @(*) begin
-    if(op == `ALU_SLT) begin
+    if(op == `ALU_SLT || op == `ALU_SLTU) begin
         if(A[31] == B[31]) begin
             sf = C[31];
         end else begin
-            sf = A[31];
+            sf = minuend[31];
         end
     end else begin
         sf = C[31];
