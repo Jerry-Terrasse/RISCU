@@ -27,9 +27,9 @@ module ALU(
 `define ALU_SLTU 4'b1001
 */
 
-wire [31: 0] minuend;
-wire [31: 0] subtrahend;
-wire [31: 0] difference;
+reg [31: 0] minuend;
+reg [31: 0] subtrahend;
+reg [31: 0] difference;
 
 always @(*) begin
     if(op == `ALU_SLTU) begin
