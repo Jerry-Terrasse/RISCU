@@ -37,10 +37,12 @@ always @(*) begin
         `ALU_SLL: C = A << B[4: 0];
         `ALU_SRL: C = A >> B[4: 0];
         `ALU_SRA: begin
-            if(A[31] == 0 || B[4: 0] == 0) begin
+            if(B[4: 0] == 0) begin
                 C = A;
+            end else if(A[31] == 0) begin
+                C = A >> B[4: 0];
             end else begin
-                C =  (A >> B[4: 0]) | ((32'b1 << B[4: 0]) - 1) << (32 - B[4: 0]);
+                C = (A >> B[4: 0]) | ((32'b1 << B[4: 0]) - 1) << (32 - B[4: 0]);
             end
         end
         `ALU_SLT: C = A - B;
