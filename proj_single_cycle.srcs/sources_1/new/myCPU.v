@@ -64,10 +64,15 @@ wire [31: 0] alu_b = u_controller.alub_sel==`ALUB_RS2 ? u_rf.rD2 : ext;
 ALU u_alu(.op(u_controller.alu_op), .A(u_rf.rD1), .B(alu_b), .C(alu_c));
 assign alu_f = u_controller.br_sel==`BR_SIGN ? u_alu.sf : u_alu.zf;
 
-DRAM u_dram(
-    .a(alu_c[13: 0]), .spo(dram_rdo),
-    .d(u_rf.rD2), .clk(cpu_clk), .we(u_controller.ram_we)
-);
+// DRAM u_dram(
+//     .a(alu_c[13: 0]), .spo(dram_rdo),
+//     .d(u_rf.rD2), .clk(cpu_clk), .we(u_controller.ram_we)
+// );
+
+assign Bus_addr = alu_c;
+assign dram_rdo = Bus_rdata;
+assign Bus_wen = u_controller.ram_we;
+assign Bus_wdata = u_rf.rD2;
 
 `ifdef RUN_TRACE
     // Debug Interface
