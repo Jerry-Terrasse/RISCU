@@ -13,7 +13,7 @@ module myCPU (
     // Interface to Bridge
     output wire [31:0]  Bus_addr,
     input  wire [31:0]  Bus_rdata,
-    output wire         Bus_wen,
+    output wire [3: 0]  Bus_wen,
     output wire [31:0]  Bus_wdata
 
 `ifdef RUN_TRACE

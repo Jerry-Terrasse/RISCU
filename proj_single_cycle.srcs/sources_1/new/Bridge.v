@@ -7,7 +7,7 @@ module Bridge (
     input  wire         rst_from_cpu,
     input  wire         clk_from_cpu,
     input  wire [31:0]  addr_from_cpu,
-    input  wire         wen_from_cpu,
+    input  wire [3: 0]  wen_from_cpu,
     input  wire [31:0]  wdata_from_cpu,
     output reg  [31:0]  rdata_to_cpu,
     
@@ -16,7 +16,7 @@ module Bridge (
     output wire         clk_to_dram,
     output wire [31:0]  addr_to_dram,
     input  wire [31:0]  rdata_from_dram,
-    output wire         wen_to_dram,
+    output wire [3: 0]  wen_to_dram,
     output wire [31:0]  wdata_to_dram,
     
     // Interface to 7-seg digital LEDs
@@ -58,25 +58,27 @@ module Bridge (
                               access_sw,
                               access_btn };
 
+    wire wen = wen_from_cpu != 4'h0;
+
     // DRAM
     // assign rst_to_dram  = rst_from_cpu;
     assign clk_to_dram   = clk_from_cpu;
     assign addr_to_dram  = addr_from_cpu;
-    assign wen_to_dram   = wen_from_cpu & access_mem;
+    assign wen_to_dram   = (wen & access_mem) ? wen_from_cpu : 4'h0;
     assign wdata_to_dram = wdata_from_cpu;
 
     // 7-seg LEDs
     assign rst_to_dig    = rst_from_cpu;
     assign clk_to_dig    = clk_from_cpu;
     assign addr_to_dig   = addr_from_cpu[11:0];
-    assign wen_to_dig    = wen_from_cpu & access_dig;
+    assign wen_to_dig    = wen & access_dig;
     assign wdata_to_dig  = wdata_from_cpu;
 
     // LEDs
     assign rst_to_led    = rst_from_cpu;
     assign clk_to_led    = clk_from_cpu;
     assign addr_to_led   = addr_from_cpu[11:0];
-    assign wen_to_led    = wen_from_cpu & access_led;
+    assign wen_to_led    = wen & access_led;
     assign wdata_to_led  = wdata_from_cpu;
     
     // Switches
