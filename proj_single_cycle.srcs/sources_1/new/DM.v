@@ -15,7 +15,7 @@ always @(*) begin
         `RAM_W1: wen = 4'b0001;
         `RAM_W2: wen = 4'b0011;
         `RAM_W4: wen = 4'b1111;
-        `default: wen = 4'b0000;
+        default: wen = 4'b0000;
     endcase
 end
 
