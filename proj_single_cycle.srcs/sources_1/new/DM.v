@@ -66,7 +66,7 @@ always @(*) begin
         endcase
     end else if(op == `RAM_R2) begin
         if(a_i[1]) begin
-            rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[31: 16]};
+            rdo_ext = {rdo[31] ? 16'hffff : 16'h0, rdo[31: 16]};
         end else begin
             rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 0]};
         end
