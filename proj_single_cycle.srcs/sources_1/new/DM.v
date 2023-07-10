@@ -11,7 +11,7 @@ module DM(
     output wire [31: 0] a_o,
     output reg [3: 0] wen,
     output reg [31: 0] wdo,
-    output wire [31: 0] rdo_ext
+    output reg [31: 0] rdo_ext
 );
 
 always @(*) begin

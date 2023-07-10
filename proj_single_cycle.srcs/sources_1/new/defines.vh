@@ -2,7 +2,9 @@
 `define CPU_DEFINES
 
 // Annotate this macro before synthesis
- `define RUN_TRACE
+// `define RUN_TRACE
+
+`define ONBOARD_TRACE
 
 // ¿ØÖÆÐÅºÅ
 

@@ -148,9 +148,15 @@ module miniRV_SoC (
         .rdata_from_btn     (/* TODO */)
     );
 
+`ifdef ONBOARD_TRACE
+    wire [31: 0] addr_tmp = addr_bridge2dram - 32'h4000;
+`else
+    wire [31: 0] addr_tmp = addr_bridge2dram;
+`endif
+
     DRAM Mem_DRAM (
         .clk        (clk_bridge2dram),
-        .a          (addr_bridge2dram[15:2]),
+        .a          (addr_tmp[15:2]),
         .spo        (rdata_dram2bridge),
         .we         (wen_bridge2dram),
         .d          (wdata_bridge2dram)
