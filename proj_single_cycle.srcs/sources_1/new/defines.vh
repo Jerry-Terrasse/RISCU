@@ -64,6 +64,8 @@
 `define RAM_R4 3'b000
 `define RAM_R2 3'b001
 `define RAM_R1 3'b010
+`define RAM_U2 3'b011
+`define RAM_U1 3'b100
 
 // 外设I/O接口电路的端口地址
 `define PERI_ADDR_DIG   32'hFFFF_F000

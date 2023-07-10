@@ -23,6 +23,8 @@ always @(*) begin
     case(op)
         `RAM_R1: rdo_ext = {rdo[7] ? 24'hffffff : 24'h0, rdo[7: 0]};
         `RAM_R2: rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 0]};
+        `RAM_U1: rdo_ext = {24'h0, rdo[7: 0]};
+        `RAM_U2: rdo_ext = {16'h0, rdo[15: 0]};
         default: rdo_ext = rdo;
     endcase
 end
