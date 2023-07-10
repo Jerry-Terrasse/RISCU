@@ -69,10 +69,12 @@ assign alu_f = u_controller.br_sel==`BR_SIGN ? u_alu.sf : u_alu.zf;
 //     .d(u_rf.rD2), .clk(cpu_clk), .we(u_controller.ram_we)
 // );
 
-DM u_dm(.op(u_controller.ram_mode), .rdo(Bus_rdata), .wen(Bus_wen), .rdo_ext(dram_rdo));
-
-assign Bus_addr = alu_c;
-assign Bus_wdata = u_rf.rD2;
+DM u_dm(
+    .op(u_controller.ram_mode),
+    .a_i(alu_c), .a_o(Bus_addr),
+    .rdo(Bus_rdata), .rdo_ext(dram_rdo)
+    .wen(Bus_wen), .wdi(u_rf.rD2), .wdo(Bus_wdata)
+);
 
 `ifdef RUN_TRACE
     // Debug Interface

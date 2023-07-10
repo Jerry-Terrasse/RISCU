@@ -5,9 +5,10 @@
 module DM(
     input wire [2: 0] op,
     input wire [31: 0] rdo,
-    input wire [31: 0] adr,
+    input wire [31: 0] a_i,
     input wire [31: 0] wdi,
 
+    output wire [31: 0] a_o,
     output reg [3: 0] wen,
     output reg [31: 0] wdo,
     output wire [31: 0] rdo_ext
@@ -87,5 +88,7 @@ always @(*) begin
         rdo_ext = rdo;
     end
 end
+
+assign a_o = {a_i[31: 2], 2'h0};
 
 endmodule
