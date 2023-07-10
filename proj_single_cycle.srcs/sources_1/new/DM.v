@@ -5,28 +5,87 @@
 module DM(
     input wire [2: 0] op,
     input wire [31: 0] rdo,
+    input wire [31: 0] adr,
+    input wire [31: 0] wdi,
 
     output reg [3: 0] wen,
+    output reg [31: 0] wdo,
     output wire [31: 0] rdo_ext
 );
 
 always @(*) begin
-    case(op)
-        `RAM_W1: wen = 4'b0001;
-        `RAM_W2: wen = 4'b0011;
-        `RAM_W4: wen = 4'b1111;
-        default: wen = 4'b0000;
-    endcase
+    if(op == `RAM_W1) begin
+        case(adr[1: 0])
+            2'b00: begin
+                wen = 4'b0001;
+                wdo = {24'h0, wdi[7: 0]};
+            end
+            2'b01: begin
+                wen = 4'b0010;
+                wdo = {16'h0, wdi[7: 0], 8'h0};
+            end
+            2'b10: begin
+                wen = 4'b0100;
+                wdo = {8'h0, wdi[7: 0], 16'h0};
+            end
+            2'b11: begin
+                wen = 4'b1000;
+                wdo = {wdi[7: 0], 24'h0};
+            end
+            default: begin
+                wen = 4'b0000;
+                wdo = 32'hffffffff;
+            end
+        endcase
+    end else if(op == `RAM_W2) begin
+        if(adr[1]) begin
+            wen = 4'b1100;
+            wdo = {wdi[15: 0], 16'h0};
+        end else begin
+            wen = 4'b0011;
+            wdo = {16'h0, wdi[15: 0]};
+        end
+    end else if(op == `RAM_W4) begin
+        wen = 4'b1111;
+        wdo = wdi;
+    end else begin
+        wen = 4'b0000;
+        wdo = 32'h0;
+    end
 end
 
 always @(*) begin
-    case(op)
-        `RAM_R1: rdo_ext = {rdo[7] ? 24'hffffff : 24'h0, rdo[7: 0]};
-        `RAM_R2: rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 0]};
-        `RAM_U1: rdo_ext = {24'h0, rdo[7: 0]};
-        `RAM_U2: rdo_ext = {16'h0, rdo[15: 0]};
-        default: rdo_ext = rdo;
-    endcase
+    if(op == `RAM_R1) begin
+        case(adr[1: 0])
+            2'b00: rdo_ext = {rdo[7] ? 24'hffffff : 24'h0, rdo[7: 0]};
+            2'b01: rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 8]};
+            2'b10: rdo_ext = {rdo[23] ? 8'hff : 8'h0, rdo[23: 16]};
+            2'b11: rdo_ext = {rdo[31] ? 8'hff : 8'h0, rdo[31: 24]};
+            default: rdo_ext = 32'hffffffff;
+        endcase
+    end else if(op == `RAM_R2) begin
+        if(adr[1]) begin
+            rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[31: 16]};
+        end else begin
+            rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 0]};
+        end
+    end else if(op == `RAM_U1) begin
+        case(adr[1: 0])
+            2'b00: rdo_ext = {24'h0, rdo[7: 0]};
+            2'b01: rdo_ext = {24'h0, rdo[15: 8]};
+            2'b10: rdo_ext = {24'h0, rdo[23: 16]};
+            2'b11: rdo_ext = {24'h0, rdo[31: 24]};
+            default: rdo_ext = 32'hffffffff;
+        endcase
+    end else if(op == `RAM_U2) begin
+        if(adr[1]) begin
+            rdo_ext = {16'h0, rdo[31: 16]};
+        end else begin
+            rdo_ext = {16'h0, rdo[15: 0]};
+        end
+    end else begin
+        rdo_ext = rdo;
+    end
 end
 
 endmodule
