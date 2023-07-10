@@ -72,7 +72,7 @@ assign alu_f = u_controller.br_sel==`BR_SIGN ? u_alu.sf : u_alu.zf;
 DM u_dm(
     .op(u_controller.ram_mode),
     .a_i(alu_c), .a_o(Bus_addr),
-    .rdo(Bus_rdata), .rdo_ext(dram_rdo)
+    .rdo(Bus_rdata), .rdo_ext(dram_rdo),
     .wen(Bus_wen), .wdi(u_rf.rD2), .wdo(Bus_wdata)
 );
 
