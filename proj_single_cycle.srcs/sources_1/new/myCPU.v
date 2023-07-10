@@ -69,9 +69,9 @@ assign alu_f = u_controller.br_sel==`BR_SIGN ? u_alu.sf : u_alu.zf;
 //     .d(u_rf.rD2), .clk(cpu_clk), .we(u_controller.ram_we)
 // );
 
+DM u_dm(.op(u_controller.ram_mode), .rdo(Bus_rdata), .wen(Bus_wen), .rdo_ext(dram_rdo));
+
 assign Bus_addr = alu_c;
-assign dram_rdo = Bus_rdata;
-assign Bus_wen = u_controller.ram_we;
 assign Bus_wdata = u_rf.rD2;
 
 `ifdef RUN_TRACE

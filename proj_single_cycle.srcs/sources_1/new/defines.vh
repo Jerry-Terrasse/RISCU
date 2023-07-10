@@ -56,12 +56,14 @@
 `define ALUB_RS2 1'b0
 `define ALUB_EXT 1'b1
 
-// ram_we
-`define RAM_RD 2'b00
-`define RAM_NO 2'b00
-`define RAM_W1 2'b01
-`define RAM_W2 2'b10
-`define RAM_W4 2'b11
+// ram_mode
+`define RAM_NO 3'b000
+`define RAM_W1 3'b101
+`define RAM_W2 3'b110
+`define RAM_W4 3'b111
+`define RAM_R4 3'b000
+`define RAM_R2 3'b001
+`define RAM_R1 3'b010
 
 // 外设I/O接口电路的端口地址
 `define PERI_ADDR_DIG   32'hFFFF_F000

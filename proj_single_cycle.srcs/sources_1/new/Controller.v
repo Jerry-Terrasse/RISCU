@@ -13,31 +13,20 @@ module Controller(
     output wire [2: 0] sext_op,
     output wire [3: 0] alu_op,
     output wire alub_sel,
-    output reg [3: 0] ram_we
+    output wire [2: 0] ram_mode
 );
 
 wire [17: 0] rom_data;
 Controller_ROM u_controller_rom(.a(inst), .spo(rom_data));
 
-assign pc_sel = rom_data[17];
-assign npc_op = rom_data[16: 15];
-assign br_sel = rom_data[14];
-assign rf_we = rom_data[13];
-assign rf_wsel = rom_data[12: 10];
-assign sext_op = rom_data[8: 7];
-assign alu_op = rom_data[6: 3];
-assign alub_sel = rom_data[2];
-
-wire [1: 0] ram_we_compressed rom_data[1: 0];
-
-always @(*) begin
-    case(ram_we_compressed)
-        `RAM_NO: ram_we = 4'b0000;
-        `RAM_W1: ram_we = 4'b0001;
-        `RAM_W2: ram_we = 4'b0011;
-        `RAM_W4: ram_we = 4'b1111;
-        `default: ram_we = 4'b0000;
-    endcase
-end
+assign pc_sel = rom_data[18];
+assign npc_op = rom_data[17: 16];
+assign br_sel = rom_data[15];
+assign rf_we = rom_data[14];
+assign rf_wsel = rom_data[13: 11];
+assign sext_op = rom_data[9: 8];
+assign alu_op = rom_data[7: 4];
+assign alub_sel = rom_data[3];
+assign ram_mode = rom_data[2: 0];
 
 endmodule
