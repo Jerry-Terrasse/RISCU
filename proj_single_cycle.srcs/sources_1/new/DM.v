@@ -59,9 +59,9 @@ always @(*) begin
     if(op == `RAM_R1) begin
         case(a_i[1: 0])
             2'b00: rdo_ext = {rdo[7] ? 24'hffffff : 24'h0, rdo[7: 0]};
-            2'b01: rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 8]};
-            2'b10: rdo_ext = {rdo[23] ? 8'hff : 8'h0, rdo[23: 16]};
-            2'b11: rdo_ext = {rdo[31] ? 8'hff : 8'h0, rdo[31: 24]};
+            2'b01: rdo_ext = {rdo[15] ? 24'hffffff : 24'h0, rdo[15: 8]};
+            2'b10: rdo_ext = {rdo[23] ? 24'hffffff : 24'h0, rdo[23: 16]};
+            2'b11: rdo_ext = {rdo[31] ? 24'hffffff : 24'h0, rdo[31: 24]};
             default: rdo_ext = 32'hffffffff;
         endcase
     end else if(op == `RAM_R2) begin
