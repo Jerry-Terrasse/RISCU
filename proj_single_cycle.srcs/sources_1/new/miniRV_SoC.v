@@ -56,9 +56,14 @@ module miniRV_SoC (
     wire [31:0]  wdata_bridge2dram;
     
     // Interface between bridge and peripherals
-    // TODO: 在此定义总线桥与外设I/O接口电路模块的连接信号
-    //
     
+    // Interface between bridge and 7-seg digital LEDs
+    wire rst_bridge2dig;
+    wire clk_bridge2dig;
+    // wire [11:0] addr_bridge2dig;
+    wire wen_bridge2dig;
+    wire [31:0] wdata_bridge2dig;
+
 
     
 `ifdef RUN_TRACE
@@ -122,11 +127,11 @@ module miniRV_SoC (
         .wdata_to_dram      (wdata_bridge2dram),
         
         // Interface to 7-seg digital LEDs
-        .rst_to_dig         (/* TODO */),
-        .clk_to_dig         (/* TODO */),
-        .addr_to_dig        (/* TODO */),
-        .wen_to_dig         (/* TODO */),
-        .wdata_to_dig       (/* TODO */),
+        .rst_to_dig         (rst_bridge2dig),
+        .clk_to_dig         (clk_bridge2dig),
+        // .addr_to_dig        (addr_bridge2dig),
+        .wen_to_dig         (wen_bridge2dig),
+        .wdata_to_dig       (wdata_bridge2dig),
 
         // Interface to LEDs
         .rst_to_led         (/* TODO */),
@@ -162,8 +167,24 @@ module miniRV_SoC (
         .d          (wdata_bridge2dram)
     );
     
-    // TODO: 在此实例化你的外设I/O接口电路模块
-    //
+    // 7-seg digital LEDs
+    wire [7: 0] segs;
+    dig_controller dig (
+        .rst        (rst_bridge2dig),
+        .clk        (clk_bridge2dig),
+        .wen        (wen_bridge2dig),
+        .wdata      (wdata_bridge2dig),
+        .led        (segs),
+        .led_en     (dig_en)
+    );
+    assign DN_A = segs[7];
+    assign DN_B = segs[6];
+    assign DN_C = segs[5];
+    assign DN_D = segs[4];
+    assign DN_E = segs[3];
+    assign DN_F = segs[2];
+    assign DN_G = segs[1];
+    assign DN_DP= segs[0];
 
 
 endmodule

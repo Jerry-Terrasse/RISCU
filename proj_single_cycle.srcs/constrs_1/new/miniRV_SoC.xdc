@@ -32,6 +32,7 @@ set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN  P5 } [get_ports button[2]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN  P1 } [get_ports button[1]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN  R1 } [get_ports button[0]]
 
+# 位选信号
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN A18 } [get_ports dig_en[7]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN A20 } [get_ports dig_en[6]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN B20 } [get_ports dig_en[5]]
@@ -41,6 +42,7 @@ set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN D19 } [get_ports dig_en[2]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN E19 } [get_ports dig_en[1]]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN C19 } [get_ports dig_en[0]]
 
+# 段选信号
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN F15 } [get_ports DN_A ]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN F13 } [get_ports DN_B ]
 set_property -dict { IOSTANDARD LVCMOS33 PACKAGE_PIN F14 } [get_ports DN_C ]

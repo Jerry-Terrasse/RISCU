@@ -22,7 +22,7 @@ module Bridge (
     // Interface to 7-seg digital LEDs
     output wire         rst_to_dig,
     output wire         clk_to_dig,
-    output wire [11:0]  addr_to_dig,
+    // output wire [11:0]  addr_to_dig,
     output wire         wen_to_dig,
     output wire [31:0]  wdata_to_dig,
 
@@ -70,7 +70,7 @@ module Bridge (
     // 7-seg LEDs
     assign rst_to_dig    = rst_from_cpu;
     assign clk_to_dig    = clk_from_cpu;
-    assign addr_to_dig   = addr_from_cpu[11:0];
+    // assign addr_to_dig   = addr_from_cpu[11:0];
     assign wen_to_dig    = wen & access_dig;
     assign wdata_to_dig  = wdata_from_cpu;
 
