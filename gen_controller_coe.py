@@ -52,9 +52,16 @@ import sys
 `define ALUB_RS2 1'b0
 `define ALUB_EXT 1'b1
 
-// ram_we
-`define RAM_WE 1'b1
-`define RAM_NO 1'b0
+// ram_mode
+`define RAM_NO 3'b000
+`define RAM_W1 3'b101
+`define RAM_W2 3'b110
+`define RAM_W4 3'b111
+`define RAM_R4 3'b000
+`define RAM_R2 3'b001
+`define RAM_R1 3'b010
+`define RAM_U2 3'b011
+`define RAM_U1 3'b100
 '''
 
 
@@ -93,9 +100,15 @@ signal: dict[str, int] = {
     'ALU_SLTU': 0b1001,
     'ALUB_RS2': 0b0,
     'ALUB_EXT': 0b1,
-    'RAM_WE': 0b1,
-    'RAM_RD': 0b0,
-    'RAM_NO': 0b0,
+    'RAM_NO': 0b000,
+    'RAM_W1': 0b101,
+    'RAM_W2': 0b110,
+    'RAM_W4': 0b111,
+    'RAM_R4': 0b000,
+    'RAM_R2': 0b001,
+    'RAM_R1': 0b010,
+    'RAM_U2': 0b011,
+    'RAM_U1': 0b100,
 }
 
 class Instruction:
@@ -120,8 +133,8 @@ class Instruction:
         self.sext_op = 0 if data[10] == '-' else signal[data[10]]
         self.alu_op = 0 if data[11] == '-' else signal[data[11]]
         self.alub_sel = 0 if data[12] == '-' else signal[data[12]]
-        self.ram_we = 0 if data[13] == '-' else signal[data[13]]
-        self.signal = f"{self.pc_sel:01b}{self.npc_op:02b}{self.br_sel:01b}{self.rf_we:01b}{self.rf_wsel:03b}{self.sext_op:03b}{self.alu_op:04b}{self.alub_sel:01b}{self.ram_we:01b}"
+        self.ram_mode = 0 if data[13] == '-' else signal[data[13]]
+        self.signal = f"{self.pc_sel:01b}{self.npc_op:02b}{self.br_sel:01b}{self.rf_we:01b}{self.rf_wsel:03b}{self.sext_op:03b}{self.alu_op:04b}{self.alub_sel:01b}{self.ram_mode:03b}"
         
 
 def work(file_name: str):
@@ -151,7 +164,7 @@ def work(file_name: str):
             ROM.append(inst.signal)
             break
         else:
-            ROM.append('0' * 17)
+            ROM.append('0' * 19)
     print("add:", ROM[0b0110011_000_0]) # add
     print("srai:", ROM[0b0010011_101_1]) # srai
     print("jal:", ROM[0b1101111_000_0]) # jal
