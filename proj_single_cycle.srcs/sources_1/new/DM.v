@@ -16,7 +16,7 @@ module DM(
 
 always @(*) begin
     if(op == `RAM_W1) begin
-        case(adr[1: 0])
+        case(a_i[1: 0])
             2'b00: begin
                 wen = 4'b0001;
                 wdo = {24'h0, wdi[7: 0]};
@@ -39,7 +39,7 @@ always @(*) begin
             end
         endcase
     end else if(op == `RAM_W2) begin
-        if(adr[1]) begin
+        if(a_i[1]) begin
             wen = 4'b1100;
             wdo = {wdi[15: 0], 16'h0};
         end else begin
@@ -57,7 +57,7 @@ end
 
 always @(*) begin
     if(op == `RAM_R1) begin
-        case(adr[1: 0])
+        case(a_i[1: 0])
             2'b00: rdo_ext = {rdo[7] ? 24'hffffff : 24'h0, rdo[7: 0]};
             2'b01: rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 8]};
             2'b10: rdo_ext = {rdo[23] ? 8'hff : 8'h0, rdo[23: 16]};
@@ -65,13 +65,13 @@ always @(*) begin
             default: rdo_ext = 32'hffffffff;
         endcase
     end else if(op == `RAM_R2) begin
-        if(adr[1]) begin
+        if(a_i[1]) begin
             rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[31: 16]};
         end else begin
             rdo_ext = {rdo[15] ? 16'hffff : 16'h0, rdo[15: 0]};
         end
     end else if(op == `RAM_U1) begin
-        case(adr[1: 0])
+        case(a_i[1: 0])
             2'b00: rdo_ext = {24'h0, rdo[7: 0]};
             2'b01: rdo_ext = {24'h0, rdo[15: 8]};
             2'b10: rdo_ext = {24'h0, rdo[23: 16]};
@@ -79,7 +79,7 @@ always @(*) begin
             default: rdo_ext = 32'hffffffff;
         endcase
     end else if(op == `RAM_U2) begin
-        if(adr[1]) begin
+        if(a_i[1]) begin
             rdo_ext = {16'h0, rdo[31: 16]};
         end else begin
             rdo_ext = {16'h0, rdo[15: 0]};
