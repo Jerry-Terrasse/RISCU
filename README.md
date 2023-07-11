@@ -1,10 +1,12 @@
-## RISCU
+## RIP
 
-RISCU: **RI**SC-V **S**ingle **C**ycle CP**U**
+RIP: **RI**SC-V **P**ipelined CPU
 
-My implementation of a single cycle CPU based on RISC-V ISA, also my lab2 of Computer Organization course.
+My implementation of pipelined CPU based on RISC-V ISA, also my lab3 of Computer Organization course.
 
-![data path](./assets/data_path.png)
+Actually, it's based on my lab2 [RISCU](https://github.com/Jerry-Terrasse/RISCU), which is a single-cycle CPU, from commit 3cbda.
 
-<center>data path</center></center>
+<!-- ![data path](./assets/data_path.png) -->
+
+<!-- <center>data path</center></center> -->
 
