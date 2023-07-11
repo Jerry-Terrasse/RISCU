@@ -1,3 +1,7 @@
+`timescale 1ns / 1ps
+
+`include "defines.vh"
+
 module dig_controller(
 	input wire rst,
 	input wire clk,

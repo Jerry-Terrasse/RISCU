@@ -64,6 +64,20 @@ module miniRV_SoC (
     wire wen_bridge2dig;
     wire [31:0] wdata_bridge2dig;
 
+    // Interface between bridge and LEDs
+    wire rst_bridge2led;
+    wire clk_bridge2led;
+    wire wen_bridge2led;
+    wire [31: 0] wdata_bridge2led;
+
+    // Interface between bridge and switches
+    wire rst_bridge2sw;
+    wire clk_bridge2sw;
+    wire [11: 0] addr_bridge2sw;
+    wire [31: 0] rdata_from_sw;
+
+    // Interface between bridge and buttons
+    wire [31: 0] rdata_from_btn;
 
     
 `ifdef RUN_TRACE
@@ -134,23 +148,23 @@ module miniRV_SoC (
         .wdata_to_dig       (wdata_bridge2dig),
 
         // Interface to LEDs
-        .rst_to_led         (/* TODO */),
-        .clk_to_led         (/* TODO */),
-        .addr_to_led        (/* TODO */),
-        .wen_to_led         (/* TODO */),
-        .wdata_to_led       (/* TODO */),
+        .rst_to_led         (rst_bridge2led),
+        .clk_to_led         (clk_bridge2led),
+        // .addr_to_led        (/* TODO */),
+        .wen_to_led         (wen_bridge2led),
+        .wdata_to_led       (wdata_bridge2led),
 
         // Interface to switches
-        .rst_to_sw          (/* TODO */),
-        .clk_to_sw          (/* TODO */),
-        .addr_to_sw         (/* TODO */),
-        .rdata_from_sw      (/* TODO */),
+        .rst_to_sw          (rst_bridge2sw),
+        .clk_to_sw          (clk_bridge2sw),
+        .addr_to_sw         (addr_bridge2sw),
+        .rdata_from_sw      (rdata_from_sw),
 
         // Interface to buttons
-        .rst_to_btn         (/* TODO */),
-        .clk_to_btn         (/* TODO */),
-        .addr_to_btn        (/* TODO */),
-        .rdata_from_btn     (/* TODO */)
+        // .rst_to_btn         (/* TODO */),
+        // .clk_to_btn         (/* TODO */),
+        // .addr_to_btn        (/* TODO */),
+        .rdata_from_btn     (rdata_from_btn)
     );
 
 `ifdef ONBOARD_TRACE
@@ -186,5 +200,28 @@ module miniRV_SoC (
     assign DN_G = segs[1];
     assign DN_DP= segs[0];
 
+    // LEDs
+//    LED Led (
+//        .rst        (rst_bridge2led),
+//        .clk        (clk_bridge2led),
+//        .wen        (wen_bridge2led),
+//        .wdata      (wdata_bridge2led),
+//        .led        (led)
+//    );
+
+    // Switches
+    Switches Sw (
+        .rst        (rst_bridge2sw),
+        .clk        (clk_bridge2sw),
+        .adr       (addr_bridge2sw),
+        .sw         (switches),
+        .rdata      (rdata_from_sw)
+    );
+
+    // Buttons
+//    Buttons Btn (
+//        .btn        (button),
+//        .rdata      (rdata_from_btn)
+//    );
 
 endmodule

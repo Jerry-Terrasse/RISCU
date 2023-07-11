@@ -29,7 +29,7 @@ module Bridge (
     // Interface to LEDs
     output wire         rst_to_led,
     output wire         clk_to_led,
-    output wire [11:0]  addr_to_led,
+    // output wire [11:0]  addr_to_led,
     output wire         wen_to_led,
     output wire [31:0]  wdata_to_led,
 
@@ -40,9 +40,9 @@ module Bridge (
     input  wire [31:0]  rdata_from_sw,
 
     // Interface to buttons
-    output wire         rst_to_btn,
-    output wire         clk_to_btn,
-    output wire [11:0]  addr_to_btn,
+    // output wire         rst_to_btn,
+    // output wire         clk_to_btn,
+    // output wire [11:0]  addr_to_btn,
     input  wire [31:0]  rdata_from_btn
 );
 
@@ -77,7 +77,7 @@ module Bridge (
     // LEDs
     assign rst_to_led    = rst_from_cpu;
     assign clk_to_led    = clk_from_cpu;
-    assign addr_to_led   = addr_from_cpu[11:0];
+    // assign addr_to_led   = addr_from_cpu[11:0];
     assign wen_to_led    = wen & access_led;
     assign wdata_to_led  = wdata_from_cpu;
     
@@ -87,9 +87,9 @@ module Bridge (
     assign addr_to_sw    = addr_from_cpu[11:0];
 
     // Buttons
-    assign rst_to_btn    = rst_from_cpu;
-    assign clk_to_btn    = clk_from_cpu;
-    assign addr_to_btn   = addr_from_cpu[11:0];
+    // assign rst_to_btn    = rst_from_cpu;
+    // assign clk_to_btn    = clk_from_cpu;
+    // assign addr_to_btn   = addr_from_cpu[11:0];
 
     // Select read data towards CPU
     always @(*) begin
