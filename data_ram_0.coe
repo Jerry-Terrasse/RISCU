@@ -1,0 +1,31 @@
+memory_initialization_radix = 16;
+memory_initialization_vector =
+ff
+00
+f0
+0f
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ff
+ff
+ff
+f0
+ff
+f0
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ef
+ef

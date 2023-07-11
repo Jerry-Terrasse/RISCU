@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Fri Jun 30 17:37:12 2023
+# Process ID: 11940
+# Current directory: D:/lab2_miniRV
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent5532 D:\lab2_miniRV\proj_single_cycle.xpr
+# Log file: D:/lab2_miniRV/vivado.log
+# Journal file: D:/lab2_miniRV\vivado.jou
+# Running On: Mech-Win-Tera, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 10, Host memory: 16898 MB
+#-----------------------------------------------------------
+start_gui
+open_project D:/lab2_miniRV/proj_single_cycle.xpr
+update_compile_order -fileset sources_1

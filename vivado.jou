@@ -2,10 +2,10 @@
 # Vivado v2022.2 (64-bit)
 # SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
 # IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Fri Jun 30 17:37:12 2023
-# Process ID: 11940
+# Start of session at: Tue Jul 11 15:04:40 2023
+# Process ID: 15812
 # Current directory: D:/lab2_miniRV
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent5532 D:\lab2_miniRV\proj_single_cycle.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13860 D:\lab2_miniRV\proj_single_cycle.xpr
 # Log file: D:/lab2_miniRV/vivado.log
 # Journal file: D:/lab2_miniRV\vivado.jou
 # Running On: Mech-Win-Tera, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 10, Host memory: 16898 MB
@@ -13,3 +13,17 @@
 start_gui
 open_project D:/lab2_miniRV/proj_single_cycle.xpr
 update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property -dict [list \
+  CONFIG.coefficient_file {D:/lab2_miniRV/data_ram_0.coe} \
+  CONFIG.data_width {8} \
+] [get_ips DRAM]
+generate_target all [get_files  D:/lab2_miniRV/proj_single_cycle.srcs/sources_1/ip/DRAM/DRAM.xci]
+catch { config_ip_cache -export [get_ips -all DRAM] }
+export_ip_user_files -of_objects [get_files D:/lab2_miniRV/proj_single_cycle.srcs/sources_1/ip/DRAM/DRAM.xci] -no_script -sync -force -quiet
+reset_run DRAM_synth_1
+launch_runs DRAM_synth_1 -jobs 16
+wait_on_run DRAM_synth_1
+export_simulation -of_objects [get_files D:/lab2_miniRV/proj_single_cycle.srcs/sources_1/ip/DRAM/DRAM.xci] -directory D:/lab2_miniRV/proj_single_cycle.ip_user_files/sim_scripts -ip_user_files_dir D:/lab2_miniRV/proj_single_cycle.ip_user_files -ipstatic_source_dir D:/lab2_miniRV/proj_single_cycle.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/lab2_miniRV/proj_single_cycle.cache/compile_simlib/modelsim} {questa=D:/lab2_miniRV/proj_single_cycle.cache/compile_simlib/questa} {riviera=D:/lab2_miniRV/proj_single_cycle.cache/compile_simlib/riviera} {activehdl=D:/lab2_miniRV/proj_single_cycle.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet

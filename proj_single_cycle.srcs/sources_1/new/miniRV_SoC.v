@@ -159,7 +159,7 @@ module miniRV_SoC (
     wire [31: 0] addr_tmp = addr_bridge2dram;
 `endif
 
-    DRAM Mem_DRAM (
+    MaskedDRAM Mem_DRAM (
         .clk        (clk_bridge2dram),
         .a          (addr_tmp[15:2]),
         .spo        (rdata_dram2bridge),
