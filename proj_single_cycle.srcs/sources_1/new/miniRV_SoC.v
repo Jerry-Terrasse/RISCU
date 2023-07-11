@@ -201,13 +201,13 @@ module miniRV_SoC (
     assign DN_DP= segs[0];
 
     // LEDs
-//    LED Led (
-//        .rst        (rst_bridge2led),
-//        .clk        (clk_bridge2led),
-//        .wen        (wen_bridge2led),
-//        .wdata      (wdata_bridge2led),
-//        .led        (led)
-//    );
+    LED Led (
+        .rst        (rst_bridge2led),
+        .clk        (clk_bridge2led),
+        .wen        (wen_bridge2led),
+        .wdata      (wdata_bridge2led),
+        .led        (led)
+    );
 
     // Switches
     Switches Sw (
